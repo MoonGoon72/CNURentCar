@@ -7,7 +7,7 @@ export class Reserve {
   @PrimaryColumn()
   licensePlateNo: string;
 
-  @Column({ type: 'date', nullable: false })
+  @PrimaryColumn()
   startDate: Date;
 
   @Column({ type: 'date', nullable: false })

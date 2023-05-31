@@ -7,7 +7,7 @@ export class PreviousRental {
   @PrimaryColumn()
   licensePlateNo: string;
 
-  @Column({ type: 'date', nullable: false })
+  @PrimaryColumn()
   dateRented: Date;
 
   @Column({ type: 'date', nullable: false })

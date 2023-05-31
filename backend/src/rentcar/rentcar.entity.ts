@@ -21,10 +21,10 @@ export class RentCar {
   @JoinColumn({ name: 'modelName' })
   carModel: CarModel;
 
-  @Column({ type: 'date' })
+  @Column({ type: 'date', nullable: true })
   dateRented: Date;
 
-  @Column({ type: 'date' })
+  @Column({ type: 'date', nullable: true })
   dateDue: Date;
 
   @ManyToOne(() => Customer, (customer) => customer.rentCars)
