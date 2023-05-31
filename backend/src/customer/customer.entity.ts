@@ -1,16 +1,20 @@
-import { BaseEntity, Column, Entity, PrimaryColumn } from 'typeorm';
+import { RentCar } from '@src/rentcar/rentcar.entity';
+import { BaseEntity, Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
 
 @Entity('customer')
 export class Customer extends BaseEntity {
   @PrimaryColumn()
   cno!: string;
 
-  @Column()
+  @Column({ nullable: false })
   name!: string;
 
-  @Column()
+  @Column({ nullable: false })
   passwd!: string;
 
-  @Column()
+  @Column({ nullable: false })
   email!: string;
+
+  @OneToMany(() => RentCar, (rentCar) => rentCar.customer)
+  rentCars: RentCar[];
 }

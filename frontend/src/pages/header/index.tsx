@@ -1,3 +1,6 @@
-const Header = () => {
-  return <p>{"헤더입니다."}</p>;
+import Header from "@/components/header";
+const HeaderPage = () => {
+  return <Header />;
 };
+
+export default HeaderPage;

@@ -1,5 +1,7 @@
+import Reserves from "@/components/reserve";
+
 const Reserve = () => {
-  return <div>{"reserve"}</div>;
+  return <Reserves />;
 };
 
 export default Reserve;

@@ -1,12 +1,8 @@
-import Input from "@/components/login/Input";
+import React, { useState } from "react";
+import LogIn from "@/components/login";
 
 const LoginPage = () => {
-  return (
-    <div>
-      {"login view"}
-      <Input />
-    </div>
-  );
+  return <LogIn />;
 };
 
 export default LoginPage;
