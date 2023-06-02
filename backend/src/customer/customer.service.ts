@@ -7,14 +7,13 @@ export class CustomerService {
   constructor(
     @InjectRepository(Customer)
     private customerRepository: Repository<Customer>,
-  ) {
-    this.customerRepository = customerRepository;
-  }
-
-  async checkUser({ cno, passwd }: Partial<Customer>) {
-    const user = await this.customerRepository.findOneBy({ cno, passwd });
-    console.log('user', user, cno, passwd, typeof user);
-    if (user) return true;
+  ) {}
+  // findOne 함수를 통해서 customer 테이블에 cno와 passwd가 유저가 입력한 정보와 같은지 판단하여 그에따른 참 거짓 값 리턴
+  async validateCustomer(cno: string, passwd: string): Promise<boolean> {
+    const customer = await this.customerRepository.findOne({ where: { cno } });
+    if (customer && customer.passwd === passwd) {
+      return true;
+    }
     return false;
   }
 }

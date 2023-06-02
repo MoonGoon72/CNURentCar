@@ -1,0 +1,183 @@
+-- car_model 테이블에 최소 5개의 자동차 모델 정보 구축
+INSERT INTO car_model (modelName, vehicleType, rentRatePerDay, fuel, numberOfSeats)
+VALUES
+('마티즈', '소형', 100000, '가솔린', 5);
+INSERT INTO car_model (modelName, vehicleType, rentRatePerDay, fuel, numberOfSeats)
+VALUES
+('페라리 푸로산게', 'SUV', 140000, '가솔린', 9);
+INSERT INTO car_model (modelName, vehicleType, rentRatePerDay, fuel, numberOfSeats)
+VALUES
+('더 뉴 카니발', '승합', 170000, '디젤', 7);
+INSERT INTO car_model (modelName, vehicleType, rentRatePerDay, fuel, numberOfSeats)
+VALUES
+('G90', '대형', 130000, '가솔린', 5);
+INSERT INTO car_model (modelName, vehicleType, rentRatePerDay, fuel, numberOfSeats)
+VALUES
+('니로 (EV)', '전기차', 120000, '전기', 5);
+
+
+
+
+
+
+
+
+
+
+
+INSERT INTO customer (cno, name, passwd, email)
+VALUES
+('kim01', '김기훈', '1111', 'kim@gmail.com');
+INSERT INTO customer (cno, name, passwd, email)
+VALUES
+('hachi', '유찬희', '2222', 'yu@gmail.com');
+INSERT INTO customer (cno, name, passwd, email)
+VALUES
+('MoonGoon', '문영균', '3333', 'moongoon.cnu@gmail.com');
+INSERT INTO customer (cno, name, passwd, email)
+VALUES
+('jii', '양지성', '0000', 'jii@gmail.com');
+INSERT INTO customer (cno, name, passwd, email)
+VALUES
+('ham', '함윤식', '4444', 'ham@gmail.com');
+
+
+
+
+
+
+
+
+
+
+
+
+
+INSERT INTO rent_car (licensePlateNo, modelName, dateRented, dateDue, cno)
+VALUES
+('12허 1234', '마티즈', '2023-05-10', '2023-05-14', 'kim01');
+INSERT INTO rent_car (licensePlateNo, modelName, dateRented, dateDue, cno)
+VALUES
+('23허 2345', '페라리 푸로산게', '2023-05-11', '2023-05-13', 'hachi');
+INSERT INTO rent_car (licensePlateNo, modelName, dateRented, dateDue, cno)
+VALUES
+('34허 3456', '더 뉴 카니발', '2023-05-12', '2023-05-15', 'MoonGoon');
+INSERT INTO rent_car (licensePlateNo, modelName, dateRented, dateDue, cno)
+VALUES
+('45허 4567', 'G90', '2023-05-13', '2023-05-16', 'jii');
+INSERT INTO rent_car (licensePlateNo, modelName, dateRented, dateDue, cno)
+VALUES
+('56허 5678', '니로 (EV)', '2023-05-14', '2023-05-17', 'ham');
+INSERT INTO rent_car (licensePlateNo, modelName, dateRented, dateDue, cno)
+VALUES
+('67허 6789', '마티즈', NULL, NULL, NULL);
+INSERT INTO rent_car (licensePlateNo, modelName, dateRented, dateDue, cno)
+VALUES
+('78허 7890', '페라리 푸로산게', NULL, NULL, NULL);
+INSERT INTO rent_car (licensePlateNo, modelName, dateRented, dateDue, cno)
+VALUES
+('89허 8901', '더 뉴 카니발', NULL, NULL, NULL);
+INSERT INTO rent_car (licensePlateNo, modelName, dateRented, dateDue, cno)
+VALUES
+('90허 9012', 'G90', NULL, NULL, NULL);
+INSERT INTO rent_car (licensePlateNo, modelName, dateRented, dateDue, cno)
+VALUES
+('01허 0123', '니로 (EV)', NULL, NULL, NULL);
+
+
+
+
+INSERT INTO options (licensePlateNo, optionName)
+VALUES ('12허 1234', '통풍시트');
+INSERT INTO options (licensePlateNo, optionName)
+VALUES ('12허 1234', '하이패스');
+INSERT INTO options (licensePlateNo, optionName)
+VALUES ('12허 1234', '후방카메라');
+INSERT INTO options (licensePlateNo, optionName)
+VALUES ('23허 2345', '하이패스');
+INSERT INTO options (licensePlateNo, optionName)
+VALUES ('23허 2345', '후방카메라');
+INSERT INTO options (licensePlateNo, optionName)
+VALUES ('34허 3456', '통풍시트');
+INSERT INTO options (licensePlateNo, optionName)
+VALUES ('34허 3456', '후방카메라');
+INSERT INTO options (licensePlateNo, optionName)
+VALUES ('45허 4567', '통풍시트');
+INSERT INTO options (licensePlateNo, optionName)
+VALUES ('45허 4567', '하이패스');
+INSERT INTO options (licensePlateNo, optionName)
+VALUES ('56허 5678', '후방카메라');
+INSERT INTO options (licensePlateNo, optionName)
+VALUES ('67허 6789', '하이패스');
+INSERT INTO options (licensePlateNo, optionName)
+VALUES ('78허 7890', '통풍시트');
+INSERT INTO options (licensePlateNo, optionName)
+VALUES ('78허 7890', '하이패스');
+INSERT INTO options (licensePlateNo, optionName)
+VALUES ('89허 8901', '후방카메라');
+INSERT INTO options (licensePlateNo, optionName)
+VALUES ('90허 9012', '통풍시트');
+INSERT INTO options (licensePlateNo, optionName)
+VALUES ('01허 0123', '하이패스');
+INSERT INTO options (licensePlateNo, optionName)
+VALUES ('01허 0123', '후방카메라');
+
+
+
+
+INSERT INTO reserve (licensePlateNo, startDate, reserveDate, endDate, cno)
+VALUES
+('12허 1234', '2023-05-15', '2023-05-12', '2023-05-20', 'kim01');
+INSERT INTO reserve (licensePlateNo, startDate, reserveDate, endDate, cno)
+VALUES
+('12허 1234', '2023-06-01', '2023-05-30', '2023-06-05', 'jii');
+INSERT INTO reserve (licensePlateNo, startDate, reserveDate, endDate, cno)
+VALUES
+('12허 1234', '2023-06-10', '2023-06-07', '2023-06-15', 'hachi');
+INSERT INTO reserve (licensePlateNo, startDate, reserveDate, endDate, cno)
+VALUES
+('23허 2345', '2023-05-20', '2023-05-18', '2023-05-22', 'MoonGoon');
+INSERT INTO reserve (licensePlateNo, startDate, reserveDate, endDate, cno)
+VALUES
+('23허 2345', '2023-06-03', '2023-06-01', '2023-06-05', 'ham');
+INSERT INTO reserve (licensePlateNo, startDate, reserveDate, endDate, cno)
+VALUES
+('23허 2345', '2023-06-15', '2023-06-12', '2023-06-18', 'jii');
+
+
+
+
+
+
+
+
+
+
+
+INSERT INTO previous_rental (licensePlateNo, dateRented, dateReturned, payment, cno)
+VALUES
+('12허 1234', '2022-05-01', '2022-05-05', 400000, 'kim01');
+INSERT INTO previous_rental (licensePlateNo, dateRented, dateReturned, payment, cno)
+VALUES
+('12허 1234', '2022-06-10', '2022-06-12', 280000, 'jii');
+INSERT INTO previous_rental (licensePlateNo, dateRented, dateReturned, payment, cno)
+VALUES
+('12허 1234', '2022-05-06', '2022-05-10', 400000, 'hachi');
+INSERT INTO previous_rental (licensePlateNo, dateRented, dateReturned, payment, cno)
+VALUES
+('12허 1234', '2022-06-13', '2022-06-15', 120000, 'jii');
+INSERT INTO previous_rental (licensePlateNo, dateRented, dateReturned, payment, cno)
+VALUES
+('23허 2345', '2022-07-01', '2022-07-08', 1050000, 'MoonGoon');
+INSERT INTO previous_rental (licensePlateNo, dateRented, dateReturned, payment, cno)
+VALUES
+('23허 2345', '2022-08-20', '2022-08-24', 320000, 'ham');
+INSERT INTO previous_rental (licensePlateNo, dateRented, dateReturned, payment, cno)
+VALUES
+('34허 3456', '2022-10-10', '2022-10-15', 600000, 'MoonGoon');
+INSERT INTO previous_rental (licensePlateNo, dateRented, dateReturned, payment, cno)
+VALUES
+('34허 3456', '2022-12-01', '2022-12-10', 2000000, 'hachi');
+INSERT INTO previous_rental (licensePlateNo, dateRented, dateReturned, payment, cno)
+VALUES
+('45허 4567', '2023-02-05', '2023-02-10', 450000, 'jii');
