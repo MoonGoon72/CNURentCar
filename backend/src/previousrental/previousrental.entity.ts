@@ -16,6 +16,9 @@ export class PreviousRental {
   @Column({ type: 'int', nullable: false })
   payment: number;
 
+  @Column({ type: 'string' })
+  cno: string;
+
   @ManyToOne(() => Customer, (customer) => customer.rentCars)
   @JoinColumn({ name: 'cno' })
   customer: Customer;

@@ -2,27 +2,34 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CarModel } from './carmodel.entity';
-import { RentCar } from '@src/rentcar/rentcar.entity';
 import { Reserve } from '@src/reserve/reserve.entity';
+
+interface carModelSearchProps {
+  modelName: string;
+}
+
+interface findAvailableCarsProps {
+  vehicleType: string;
+  startDate: Date;
+  endDate: Date;
+}
 
 @Injectable()
 export class CarModelService {
   constructor(
     @InjectRepository(CarModel)
     private carModelRepository: Repository<CarModel>,
-    @InjectRepository(RentCar)
-    private rentCarRepository: Repository<RentCar>,
     @InjectRepository(Reserve)
     private reserveRepository: Repository<Reserve>,
   ) {}
 
   // Other service methods here
 
-  async findAvailableCars(
-    vehicleType: string,
-    startDate: Date,
-    endDate: Date,
-  ): Promise<CarModel[]> {
+  async findAvailableCars({
+    vehicleType,
+    startDate,
+    endDate,
+  }: findAvailableCarsProps): Promise<CarModel[]> {
     // Find all cars of the given vehicleType
     const allCars = await this.carModelRepository.find({
       where: { vehicleType },
@@ -46,5 +53,12 @@ export class CarModelService {
     );
 
     return availableCars;
+  }
+
+  async findRentRatePerDay({ modelName }: carModelSearchProps) {
+    const carModel = await this.carModelRepository.findOne({
+      where: { modelName },
+    });
+    return carModel.rentRatePerDay;
   }
 }

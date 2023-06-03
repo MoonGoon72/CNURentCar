@@ -27,11 +27,11 @@ export class CarModelController {
     const startDate = new Date(startDateString);
     const endDate = new Date(endDateString);
 
-    const availableCars = await this.carModelService.findAvailableCars(
+    const availableCars = await this.carModelService.findAvailableCars({
       vehicleType,
       startDate,
       endDate,
-    );
+    });
     return availableCars;
   }
 }

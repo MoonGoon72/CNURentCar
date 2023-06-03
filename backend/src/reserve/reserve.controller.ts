@@ -16,7 +16,7 @@ export class ReserveController {
     status: 200,
     description: 'reserve state',
     schema: {
-      example: { status: 'success' },
+      example: { status: 'reserve success' },
     },
   })
   @ApiResponse({
@@ -31,6 +31,44 @@ export class ReserveController {
     );
     return { updatedRenterCar, newReserve };
   }
+  @Post('/return')
+  @ApiBody({ type: ReserveDto })
+  @ApiResponse({
+    status: 200,
+    description: 'return state',
+    schema: {
+      example: { status: 'return success' },
+    },
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Invalid input',
+  })
+  async returnReserve(@Body() returnReserveDto: ReserveDto) {
+    const deletedReserve = await this.reserveService.returnReserve(
+      returnReserveDto,
+    );
+
+    /*
+      // 0. req로 들어온 거 가지고 reserve 지워버리기
+      // 1. 번호판 (위에 있음, req임) 이걸 가지고 렌트카를 찾아야해
+      // Rentcar에서 번호판 가지고 찾는 로직을 만들어
+      // const rentcar = rentcarService.findByNumber()
+      // 2. 렌트카에서 차 이름을 찾아야해
+      // const carModel = carmodeService.findByName(rentcar.name)
+      // 3. 차 이름을 가지고 카모델에서 하루 대여비를 찾아야해 
+      // 4. 방금 막 찾은 따끈따끈 하루 대여비 + req로 날아온 기간 합쳐서 update PReve rental
+      // await previousUpdate(carModel.money, start, end)
+    */
+
+    return { deletedReserve };
+  }
+
+  //
+  //
+  //
+  //
+
   // 1. rentcar 의 날짜 업데이트
   // 2. reserve 데이터 insert
 

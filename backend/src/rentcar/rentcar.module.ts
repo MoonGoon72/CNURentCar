@@ -9,5 +9,6 @@ import { CarModel } from '@src/carmodel/carmodel.entity';
   imports: [TypeOrmModule.forFeature([RentCar, CarModel])],
   controllers: [RentCarController],
   providers: [RentCarService],
+  exports: [RentCarService],
 })
 export class RentcarModule {}

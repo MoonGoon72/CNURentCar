@@ -5,6 +5,12 @@ import { RentCar } from './rentcar.entity';
 import { RentCarDto } from './rentcar.dto';
 import { ReserveDto } from '@src/reserve/reserve.dto';
 
+interface RentCarSearchProps {
+  licensePlateNo: string;
+  startDate: Date;
+  endDate: Date;
+  cno: string;
+}
 @Injectable()
 export class RentCarService {
   constructor(
@@ -50,16 +56,21 @@ export class RentCarService {
     await this.rentCarRepository.save(asset);
     return asset;
   }
-  // async updateRenterCar(RentCarDto: Partial<RentCarDto>) {
-  //   const { startDate, endDate } = RentCarDto;
-  //   await this.rentCarRepository.update(
-  //     {},
-  //     { dateRented: startDate, dateDue: endDate },
-  //   );
-  // }
 
-  // async updateRenterCar(rentCar: Partial<RentCar>) {
-  // 	const {startDate, endDate} = rentCar
-  //   await this.rentCarRepository.update({rentCar}, {dateRented = startDate, dateDue = endDate});
-  // }
+  async findModelNameByLicensePlateNo({
+    startDate,
+    endDate,
+    licensePlateNo,
+    cno,
+  }: RentCarSearchProps) {
+    const rentCar = await this.rentCarRepository.findOne({
+      where: {
+        licensePlateNo: licensePlateNo,
+        dateRented: startDate,
+        dateDue: endDate,
+        cno: cno,
+      },
+    });
+    return rentCar.carModel.modelName;
+  }
 }
