@@ -21,9 +21,8 @@ export class RentCar {
   @JoinColumn({ name: 'modelName' })
   carModel: CarModel;
 
-  @Column({ type: 'string', nullable: false })
+  @Column({ type: 'string', nullable: true })
   modelName: string;
-
   @Column({ type: 'date', nullable: true })
   dateRented: Date;
 
