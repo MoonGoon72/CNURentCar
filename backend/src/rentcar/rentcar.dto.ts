@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsOptional } from 'class-validator';
 
-export class CarSearchDto {
+export class RentCarDto {
   @ApiProperty({
     description: '대여 시작 날짜',
     type: 'string',

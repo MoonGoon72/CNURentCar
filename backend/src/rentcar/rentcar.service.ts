@@ -2,7 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { RentCar } from './rentcar.entity';
-import { CarSearchDto } from './rentcar.dto';
+import { RentCarDto } from './rentcar.dto';
+import { ReserveDto } from '@src/reserve/reserve.dto';
 
 @Injectable()
 export class RentCarService {
@@ -10,7 +11,7 @@ export class RentCarService {
     @InjectRepository(RentCar)
     private rentCarRepository: Repository<RentCar>,
   ) {}
-  async findAvailableCars(searchDto: CarSearchDto): Promise<RentCar[]> {
+  async findAvailableCars(searchDto: RentCarDto): Promise<RentCar[]> {
     const { startDate, endDate, vehicleTypes } = searchDto;
 
     const vehicleTypeArray =
@@ -38,65 +39,27 @@ export class RentCarService {
     );
   }
 
-  // async findAvailableCars(searchDto: CarSearchDto): Promise<RentCar[]> {
-  //   const { startDate, endDate, vehicleTypes } = searchDto;
-
-  //   const queryBuilder = this.rentCarRepository
-  //     .createQueryBuilder('rentCar')
-  //     .innerJoinAndSelect('rentCar.carModel', 'carModel')
-  //     .andWhere(
-  //       '((rentCar.dateRented >= :endDate AND rentCar.dateDue >= :endDate) OR (rentCar.dateRented <= :startDate AND rentCar.dateDue <= :startDate)) OR rentCar.dateRented IS NULL',
-  //       { startDate, endDate },
-  //     );
-
-  //   if (vehicleTypes) {
-  //     if (Array.isArray(vehicleTypes)) {
-  //       queryBuilder.andWhere('carModel.vehicleType IN (:...vehicleTypes)', {
-  //         vehicleTypes,
-  //       });
-  //     } else if (vehicleTypes !== '전체') {
-  //       queryBuilder.andWhere('carModel.vehicleType = :vehicleType', {
-  //         vehicleType: vehicleTypes,
-  //       });
-  //     }
-  //   }
-
-  //   const cars = await queryBuilder.getMany();
-  //   return cars;
+  async updateRentCar(newReserve: Partial<ReserveDto>) {
+    const { licensePlateNo, startDate, endDate, cno } = newReserve;
+    const asset = await this.rentCarRepository.findOne({
+      where: { licensePlateNo: licensePlateNo },
+    });
+    asset.dateRented = startDate;
+    asset.dateDue = endDate;
+    asset.cno = cno;
+    await this.rentCarRepository.save(asset);
+    return asset;
+  }
+  // async updateRenterCar(RentCarDto: Partial<RentCarDto>) {
+  //   const { startDate, endDate } = RentCarDto;
+  //   await this.rentCarRepository.update(
+  //     {},
+  //     { dateRented: startDate, dateDue: endDate },
+  //   );
   // }
 
-  //   async findAvailableCars(searchDto: CarSearchDto): Promise<RentCar[]> {
-  //     const { startDate, endDate, vehicleTypes } = searchDto;
-
-  //     let queryBuilder = this.rentCarRepository
-  //       .createQueryBuilder('rentCar')
-  //       .leftJoinAndSelect('rentCar.carModel', 'carModel')
-  //       .where('rentCar.dateRented IS NULL');
-
-  //     if (startDate && endDate) {
-  //       queryBuilder = queryBuilder.andWhere(
-  //         '(rentCar.dateRented <= :startDate AND rentCar.dateRented <= :endDate) OR (rentCar.dateDue <= :startDate AND rentCar.dateDue <= :endDate) OR rentCar.dateRented IS NULL',
-  //         { startDate, endDate },
-  //       );
-  //     }
-
-  //     if (vehicleTypes) {
-  //       if (Array.isArray(vehicleTypes)) {
-  //         queryBuilder = queryBuilder.andWhere(
-  //           'carModel.vehicleType IN (:...vehicleTypes)',
-  //           { vehicleTypes },
-  //         );
-  //       } else if (vehicleTypes !== '전체') {
-  //         console.log(Array.isArray(vehicleTypes));
-  //         console.log(vehicleTypes);
-  //         queryBuilder = queryBuilder.andWhere(
-  //           'carModel.vehicleType = :vehicleType',
-  //           { vehicleType: vehicleTypes },
-  //         );
-  //       }
-  //     }
-
-  //     const cars = await queryBuilder.getMany();
-  //     return cars;
-  //   }
+  // async updateRenterCar(rentCar: Partial<RentCar>) {
+  // 	const {startDate, endDate} = rentCar
+  //   await this.rentCarRepository.update({rentCar}, {dateRented = startDate, dateDue = endDate});
+  // }
 }

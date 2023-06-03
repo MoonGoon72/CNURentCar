@@ -27,6 +27,9 @@ export class RentCar {
   @Column({ type: 'date', nullable: true })
   dateDue: Date;
 
+  @Column({ nullable: true })
+  cno: string;
+
   @ManyToOne(() => Customer, (customer) => customer.rentCars)
   @JoinColumn({ name: 'cno' })
   customer: Customer;

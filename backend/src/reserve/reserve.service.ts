@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Reserve } from './reserve.entity';
 import { ReserveDto } from './reserve.dto';
+import { RentCar } from '@src/rentcar/rentcar.entity';
 
 @Injectable()
 export class ReserveService {
@@ -12,6 +13,7 @@ export class ReserveService {
   ) {
     this.reserveRepository = reserveRepository;
   }
+
   async createReserve(createReserveDto: ReserveDto): Promise<Reserve> {
     const { licensePlateNo, startDate, endDate, cno } = createReserveDto;
     console.log(licensePlateNo, startDate, endDate, cno);

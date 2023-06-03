@@ -2,10 +2,14 @@ import { Controller, Post, Body } from '@nestjs/common';
 import { ReserveService } from './reserve.service';
 import { ReserveDto } from './reserve.dto';
 import { ApiBody, ApiResponse } from '@nestjs/swagger';
+import { RentCarService } from '@src/rentcar/rentcar.service';
 
 @Controller('reserve')
 export class ReserveController {
-  constructor(private readonly reserveService: ReserveService) {}
+  constructor(
+    private readonly reserveService: ReserveService,
+    private rentCarService: RentCarService,
+  ) {}
   @Post('/reserve')
   @ApiBody({ type: ReserveDto })
   @ApiResponse({
@@ -20,7 +24,12 @@ export class ReserveController {
     description: 'Invalid input',
   })
   async reserve(@Body() reserveDto: ReserveDto) {
-    return await this.reserveService.createReserve(reserveDto);
+    const newReserve = await this.reserveService.createReserve(reserveDto);
+    console.log(newReserve);
+    const updatedRenterCar = await this.rentCarService.updateRentCar(
+      newReserve,
+    );
+    return { updatedRenterCar, newReserve };
   }
   // 1. rentcar 의 날짜 업데이트
   // 2. reserve 데이터 insert
