@@ -16,8 +16,8 @@ import { Reserve } from '@src/reserve/reserve.entity';
     ReserveModule,
     RentcarModule,
   ],
-  providers: [CarModelService, ReserveService, RentCarService],
-  controllers: [CarModelController],
-  exports: [CarModelService],
+  // providers: [CarModelService, ReserveService, RentCarService],
+  // controllers: [CarModelController],
+  // exports: [CarModelService],
 })
 export class CarmodelModule {}

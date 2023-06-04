@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CarModel } from './carmodel.entity';
 import { Reserve } from '@src/reserve/reserve.entity';
+import { RentCar } from '@src/rentcar/rentcar.entity';
 
 interface carModelSearchProps {
   modelName: string;
@@ -19,6 +20,8 @@ export class CarModelService {
   constructor(
     @InjectRepository(CarModel)
     private carModelRepository: Repository<CarModel>,
+    @InjectRepository(RentCar)
+    private rentCarRepository: Repository<RentCar>,
     @InjectRepository(Reserve)
     private reserveRepository: Repository<Reserve>,
   ) {}

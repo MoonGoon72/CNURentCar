@@ -45,7 +45,7 @@ export class ReserveController {
     description: 'Invalid input',
   })
   async returnReserve(@Body() returnReserveDto: ReserveDto) {
-    const deletedReserve = await this.reserveService.returnReserve(
+    const deletedReserve = await this.reserveService.deleteReserve(
       returnReserveDto,
     );
 

@@ -26,8 +26,13 @@ export class PreviousRentalService {
     endDate,
     cno,
   }: UpdateProps) {
+    console.log(typeof endDate, endDate);
+    console.log(typeof startDate, startDate);
+    const newEndDate = new Date(endDate);
+    const newStartDate = new Date(startDate);
     const durationInDays = Math.ceil(
-      (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24),
+      (newEndDate.getTime() - newStartDate.getTime()) / (1000 * 60 * 60 * 24),
+      // (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24),
     );
     const payment = rentRatePerDay * durationInDays;
     const updatePreviousRental = await this.previousRentalRepository.create({
@@ -37,7 +42,7 @@ export class PreviousRentalService {
       dateReturned: endDate,
       cno: cno,
     });
-
+    await this.previousRentalRepository.save(updatePreviousRental);
     return updatePreviousRental;
   }
 }

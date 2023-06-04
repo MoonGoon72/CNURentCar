@@ -71,6 +71,6 @@ export class RentCarService {
         cno: cno,
       },
     });
-    return rentCar.carModel.modelName;
+    return rentCar?.modelName;
   }
 }

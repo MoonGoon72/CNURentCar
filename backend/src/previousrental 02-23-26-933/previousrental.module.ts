@@ -21,8 +21,8 @@ import { ReserveModule } from '@src/reserve/reserve.module';
     RentcarModule,
     ReserveModule,
   ],
-  controllers: [previousRentalController],
-  providers: [PreviousRentalService, CarModelService, RentCarService, Reserve],
-  exports: [PreviousRentalService],
+  // controllers: [previousRentalController],
+  // providers: [PreviousRentalService, CarModelService, RentCarService, Reserve],
+  // exports: [PreviousRentalService],
 })
 export class PreviousrentalModule {}

@@ -3,9 +3,16 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository } from 'typeorm';
 import { Reserve } from './reserve.entity';
 import { ReserveDto } from './reserve.dto';
-import { PreviousRentalService } from '@src/previousrental/previousrental.service';
+import { PreviousRentalService } from '@src/previousrental 02-23-26-933/previousrental.service';
 import { CarModelService } from '@src/carmodel/carmodel.service';
 import { RentCarService } from '@src/rentcar/rentcar.service';
+
+interface ReserveProps {
+  licensePlateNo: string;
+  startDate: Date;
+  endDate: Date;
+  cno: string;
+}
 
 @Injectable()
 export class ReserveService {
@@ -17,8 +24,12 @@ export class ReserveService {
     private rentCarService: RentCarService,
   ) {}
 
-  async createReserve(createReserveDto: ReserveDto): Promise<Reserve> {
-    const { licensePlateNo, startDate, endDate, cno } = createReserveDto;
+  async createReserve({
+    licensePlateNo,
+    startDate,
+    endDate,
+    cno,
+  }: ReserveProps): Promise<Reserve> {
     // console.log(licensePlateNo, startDate, endDate, cno);
     // console.log(this.reserveRepository);
     const createdReserve = await this.reserveRepository.create({
@@ -33,10 +44,13 @@ export class ReserveService {
     return this.reserveRepository.save(createdReserve);
   }
   // 회원이 렌트된 차량을 선택하면 찾아서 반납하도록함, 반납시에 삭제된 엔티티를 반환하여 이전 대여 기록에 넣을 수 있도록 함
-  async returnReserve(
-    returnReserveDto: ReserveDto,
-  ): Promise<Reserve | DeleteResult> {
-    const { licensePlateNo, startDate, endDate, cno } = returnReserveDto;
+  async deleteReserve({
+    licensePlateNo,
+    startDate,
+    endDate,
+    cno,
+  }: ReserveProps): Promise<Reserve | DeleteResult> {
+    // const { licensePlateNo, startDate, endDate, cno } = returnReserveDto;
     const returnResult = await this.reserveRepository.findOne({
       where: {
         licensePlateNo: licensePlateNo,

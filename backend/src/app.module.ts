@@ -7,7 +7,7 @@ import { CarmodelModule } from './carmodel/carmodel.module';
 import { RentcarModule } from './rentcar/rentcar.module';
 import { OptionsModule } from './options/options.module';
 import { ReserveModule } from './reserve/reserve.module';
-import { PreviousrentalModule } from './previousrental/previousrental.module';
+import { PreviousrentalModule } from './previousrental 02-23-26-933/previousrental.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
