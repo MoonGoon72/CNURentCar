@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository } from 'typeorm';
 import { Reserve } from './reserve.entity';
 import { ReserveDto } from './reserve.dto';
-import { PreviousRentalService } from '@src/previousrental 02-23-26-933/previousrental.service';
+import { PreviousRentalService } from '@src/previousrental/previousrental.service';
 import { CarModelService } from '@src/carmodel/carmodel.service';
 import { RentCarService } from '@src/rentcar/rentcar.service';
 

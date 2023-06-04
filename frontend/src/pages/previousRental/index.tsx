@@ -1,7 +1,5 @@
 import PreviousRental from "@/components/previousRental";
-
-const PreviousRentalPage = () => {
+const previousRentalPage = () => {
   return <PreviousRental />;
 };
-
-export default PreviousRentalPage;
+export default previousRentalPage;

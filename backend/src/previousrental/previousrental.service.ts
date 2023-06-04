@@ -19,6 +19,15 @@ export class PreviousRentalService {
   ) {
     this.previousRentalRepository = previousRentalRepository;
   }
+
+  // select * from previousRental
+  async getPreviousRental(): Promise<PreviousRental[]> {
+    const previousRentals = await this.previousRentalRepository.find();
+    console.log(previousRentals);
+    console.log('=================');
+    return previousRentals;
+  }
+
   async updatePreviousRental({
     licensePlateNo,
     rentRatePerDay,
@@ -32,7 +41,6 @@ export class PreviousRentalService {
     const newStartDate = new Date(startDate);
     const durationInDays = Math.ceil(
       (newEndDate.getTime() - newStartDate.getTime()) / (1000 * 60 * 60 * 24),
-      // (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24),
     );
     const payment = rentRatePerDay * durationInDays;
     const updatePreviousRental = await this.previousRentalRepository.create({

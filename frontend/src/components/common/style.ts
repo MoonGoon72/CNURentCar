@@ -1,4 +1,5 @@
 import { styled } from "styled-components";
+import { Props } from "../reserve/style";
 
 export const cardStyle = {
   width: "300px",
@@ -27,7 +28,7 @@ export const buttonStyle = {
 
 export const selectCarButtonStyle = {
   display: "inline-block",
-  margin: "0 10px",
+  margin: "0 5px",
   padding: "5px 10px",
   border: "none",
   borderRadius: "10px",
@@ -35,19 +36,6 @@ export const selectCarButtonStyle = {
   color: "#333",
   textDecoration: "none",
 };
-
-export interface Props {
-  $$typeof: any;
-  componentStyle: any;
-  foldedComponentIds: any;
-  inlineStyle: any;
-  onPress: any;
-  src: any;
-  width: string;
-  height: string;
-  size: number;
-  color: string;
-}
 
 const Cfonts = styled.div<Props>`
   font-weight: 600;

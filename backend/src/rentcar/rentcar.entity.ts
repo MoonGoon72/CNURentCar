@@ -1,7 +1,7 @@
 import { CarModel } from '@src/carmodel/carmodel.entity';
 import { Customer } from '@src/customer/customer.entity';
 import { Options } from '@src/options/options.entity';
-import { PreviousRental } from '@src/previousrental 02-23-26-933/previousrental.entity';
+import { PreviousRental } from '@src/previousrental/previousrental.entity';
 import { Reserve } from '@src/reserve/reserve.entity';
 import {
   Column,

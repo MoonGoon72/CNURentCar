@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Router, useRouter } from "next/router";
-import Header from "@/components/header";
+import Header from "@/components/common/header";
 
 const Return = () => {
-  return <Header />;
+  return <div>Return</div>;
 };
 
 export default Return;

@@ -4,8 +4,6 @@ import { PreviousRental } from './previousrental.entity';
 import { PreviousRentalService } from './previousrental.service';
 import { CarModel } from '@src/carmodel/carmodel.entity';
 import { RentCar } from '@src/rentcar/rentcar.entity';
-import { CarModelService } from '@src/carmodel/carmodel.service';
-import { RentCarService } from '@src/rentcar/rentcar.service';
 import { Reserve } from '@src/reserve/reserve.entity';
 import { Repository } from 'typeorm';
 import { previousRentalController } from './previousrental.controller';
@@ -21,8 +19,9 @@ import { ReserveModule } from '@src/reserve/reserve.module';
     RentcarModule,
     ReserveModule,
   ],
-  // controllers: [previousRentalController],
-  // providers: [PreviousRentalService, CarModelService, RentCarService, Reserve],
-  // exports: [PreviousRentalService],
+  // previousRental 의존성이 문제임
+  controllers: [previousRentalController],
+  providers: [PreviousRentalService],
+  exports: [PreviousRentalService],
 })
 export class PreviousrentalModule {}
