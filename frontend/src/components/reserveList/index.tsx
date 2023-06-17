@@ -1,10 +1,11 @@
 import { SearchState } from "@/store/state";
 import { Box, Stack } from "@mui/material";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import Paper from "@mui/material/Paper";
 import styled from "styled-components";
+import axios from "axios";
 // import { styled } from "@mui/material/styles";
 
 export interface ReserveItem {
@@ -15,34 +16,50 @@ export interface ReserveItem {
   cno: string | null;
 }
 
+interface CarModelItemProps {
+  modelName: string;
+  vehicleType: string;
+  rentRatePerDay: number;
+  fuel: string;
+  numberOfSeats: number;
+}
+
 export interface ReserveListProps {
   reserves: ReserveItem[];
 }
 
-const carModelPrices: { [key: string]: number } = {
-  마티즈: 100000,
-  "페라리 푸로산게": 140000,
-  "더 뉴 카니발": 170000,
-  G90: 120000,
-  "니로 (EV)": 130000,
-};
-
-// 차량 유형을 받아 해당 차량의 가격을 반환하는 함수
-function getPrice(vehicleName: string): number | undefined {
-  return carModelPrices[vehicleName];
+interface CarModelInfoProps {
+  carModelName: string;
 }
 
-function Car({ car }: { car: ReserveItem }) {
+const getCarModelInfo = async ({ carModelName }: CarModelInfoProps): Promise<CarModelItemProps> => {
+  try {
+    const response = await axios.post("http://localhost:4000/carModel/search", {
+      carModelName,
+    });
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+  return {} as CarModelItemProps;
+};
+
+function Car({ car, carInfo }: { car: ReserveItem; carInfo: CarModelItemProps }) {
+  // const carInfos = getCarModelInfo({ carModelName: car.modelName });
+  console.log("CarInfo입니다:", carInfo);
+  const rentFee = carInfo.rentRatePerDay;
+  const vehicleType = carInfo.vehicleType;
+  const fuel = carInfo.fuel;
+  const numberOfSeats = carInfo.numberOfSeats;
+
   return (
     <Box sx={{ width: "40%", paddingTop: 5 }}>
       <Stack spacing={2}>
         <div>
-          <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>{`차 번호: ${car.licensePlateNo}, 차종: ${car.modelName}, 렌트비: ${getPrice(
-            car.modelName
-          )}`}</Paper>
-          {/* <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>{car.modelName}</Paper> */}
-          {/* <div>{car.licensePlateNo}</div> */}
-          {/* <div>{car.modelName}</div> */}
+          <Paper
+            sx={{ p: 2, display: "flex", flexDirection: "column" }}
+          >{`차 번호: ${car.licensePlateNo}, 차종: ${car.modelName}, 렌트비: ${rentFee}, 연료: ${fuel}, 좌석 수: ${numberOfSeats}`}</Paper>
         </div>
       </Stack>
     </Box>
@@ -52,14 +69,20 @@ function Car({ car }: { car: ReserveItem }) {
 const ReserveList: React.FC<ReserveListProps> = () => {
   const data: any = useRecoilValue(SearchState);
   const router = useRouter();
-
+  const [carInfo, setCarInfo] = useState<CarModelItemProps | null>(null);
   useEffect(() => {
     if (data == null) {
       router.push("/reserve");
+    } else {
+      const fetchData = async () => {
+        const info = await getCarModelInfo({ carModelName: data.modelName });
+        setCarInfo(info);
+      };
+      fetchData();
     }
   }, [data, router]);
 
-  if (data == null) {
+  if (data == null || carInfo == null) {
     return <div>{"loading ..."}</div>;
   }
 
@@ -67,7 +90,7 @@ const ReserveList: React.FC<ReserveListProps> = () => {
   return (
     <div>
       {data.map((car: any, index: any) => (
-        <Car car={car} key={index} />
+        <Car car={car} carInfo={carInfo} key={index} />
       ))}
     </div>
   );

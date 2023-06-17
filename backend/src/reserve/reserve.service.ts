@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository } from 'typeorm';
 import { Reserve } from './reserve.entity';
-import { ReserveDto } from './reserve.dto';
 import { PreviousRentalService } from '@src/previousrental/previousrental.service';
 import { CarModelService } from '@src/carmodel/carmodel.service';
 import { RentCarService } from '@src/rentcar/rentcar.service';

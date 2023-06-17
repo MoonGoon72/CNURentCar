@@ -8,7 +8,6 @@ import { RentCarService } from '@src/rentcar/rentcar.service';
 import { PreviousRental } from '@src/previousrental/previousrental.entity';
 import { PreviousRentalService } from '@src/previousrental/previousrental.service';
 import { CarModel } from '@src/carmodel/carmodel.entity';
-import { RentCarController } from '@src/rentcar/rentcar.controller';
 import { CarModelService } from '@src/carmodel/carmodel.service';
 
 @Module({
@@ -21,7 +20,7 @@ import { CarModelService } from '@src/carmodel/carmodel.service';
     PreviousRentalService,
     CarModelService,
   ],
-  controllers: [ReserveController, RentCarController],
+  controllers: [ReserveController],
   exports: [ReserveService],
 })
 export class ReserveModule {}

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { RentCarService } from './rentcar.service';
 import { RentCarDto } from './rentcar.dto';
 import { ApiBody, ApiResponse } from '@nestjs/swagger';

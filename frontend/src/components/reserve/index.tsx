@@ -101,9 +101,15 @@ const Reserve = () => {
           </TypeButton>
         </div>
 
-        <Button style={{ fontSize: "16px", fontWeight: "bold" }} onClick={() => sendAndMoveReserveDetail({ startDate, endDate, filter })}>
-          차량 조회하고 예약하기
-        </Button>
+        {startDate <= endDate ? (
+          <Button style={{ fontSize: "16px", fontWeight: "bold" }} onClick={() => sendAndMoveReserveDetail({ startDate, endDate, filter })}>
+            차량 조회하고 예약하기
+          </Button>
+        ) : (
+          <Button style={{ fontSize: "16px", fontWeight: "bold" }} onClick={() => alert("날짜를 확인해주세요")}>
+            차량 조회하고 예약하기
+          </Button>
+        )}
       </div>
     </Card1>
   );

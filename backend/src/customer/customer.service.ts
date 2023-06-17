@@ -16,4 +16,12 @@ export class CustomerService {
     }
     return false;
   }
+
+  async getCustomerInfo(cno: string, passwd: string): Promise<Customer> {
+    const customer = await this.customerRepository.findOne({ where: { cno } });
+    if (customer && customer.passwd === passwd) {
+      return customer;
+    }
+    return null;
+  }
 }

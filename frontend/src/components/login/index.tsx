@@ -1,21 +1,53 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Router, useRouter } from "next/router";
-import Header from "@/components/common/header";
+
 import { Button, TextField } from "@mui/material";
-import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-import Input from "@mui/material/Input";
-import FilledInput from "@mui/material/FilledInput";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
-import InputAdornment from "@mui/material/InputAdornment";
-import FormHelperText from "@mui/material/FormHelperText";
-import FormControl from "@mui/material/FormControl";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import axios from "axios";
+
+interface logInProps {
+  cno: string;
+  passwd: string;
+}
 const LogIn = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [cno, setUsername] = useState("");
+  const [passwd, setPassword] = useState("");
+  const [isDup, setIsDup] = useState<boolean | null>(null);
+
+  const loginCheck = async ({ cno, passwd }: logInProps) => {
+    try {
+      const response = await axios.post("http://localhost:4000/customer/getCustomerInfo", {
+        cno,
+        passwd,
+      });
+      console.log(response);
+      if (response) {
+        setIsDup(false);
+        setUsername(cno);
+        setPassword(passwd);
+        // console.log(response.data);
+        sessionStorage.setItem("cno", cno);
+        sessionStorage.setItem("userEmail", response.data.isValid.email);
+        sessionStorage.setItem("username", response.data.isValid.name);
+      } else {
+        setIsDup(true);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    console.log("cno : ", cno);
+    console.log("passwd : ", passwd);
+  }, [cno, passwd]);
+
+  const handleInputName = (e: any) => {
+    setUsername(e.target.value);
+  };
+
+  const handleInputPassword = (e: any) => {
+    setPassword(e.target.value);
+  };
 
   const handleLogin = () => {
     // Handle login logic here
@@ -28,29 +60,18 @@ const LogIn = () => {
   return (
     <div>
       <div>
-        <TextField id="cno" label="아이디를 입력하세요" variant="outlined" sx={{ m: 2 }} />
-        <TextField id="passwd" label="비밀번호를 입력하세요" variant="outlined" sx={{ m: 2 }} />
-        <Button onClick={handleLogin} sx={{ m: 3 }} variant="contained">
+        <TextField onChange={handleInputName} label="아이디를 입력하세요" variant="outlined" sx={{ m: 2 }} />
+        <TextField onChange={handleInputPassword} label="비밀번호를 입력하세요" variant="outlined" sx={{ m: 2 }} type="password" />
+        <Button
+          onClick={() => {
+            loginCheck({ cno, passwd });
+          }}
+          sx={{ m: 3 }}
+          variant="contained"
+        >
           Login
         </Button>
       </div>
-      <div></div>
-      {/* <div className="login-page">
-        <div className="input-row">
-          <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
-        </div>
-        <div>
-          <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-        </div>
-        <div>
-          <button onClick={handleLogin}>Login</button>
-        </div>
-        <div>
-          <button style={{ color: "gray", fontSize: "small" }} onClick={handleAdminLogin}>
-            Admin Login
-          </button>
-        </div>
-      </div> */}
     </div>
   );
 };

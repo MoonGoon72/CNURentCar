@@ -1,7 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 
-import { PreviousRental } from './previousrental.entity';
-import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { PreviousRentalService } from './previousrental.service';
 @ApiTags('Previous Rental')
 @Controller('previous_rent_car')
