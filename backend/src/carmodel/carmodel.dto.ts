@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNumber, IsString } from 'class-validator';
 
+// Swagger를 사용하기 위한 부분
 export class CarModelDto {
   @ApiProperty({
     example: '마티즈',

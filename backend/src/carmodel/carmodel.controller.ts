@@ -5,6 +5,7 @@ import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CarModelService } from './carmodel.service';
 import { CarModelDto } from './carmodel.dto';
 
+// api 요청을 보면 처해는 부분
 @ApiTags('carModel')
 @Controller('carModel')
 export class CarModelController {
